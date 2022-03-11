@@ -31,20 +31,20 @@ public class TorrentView : ITorrentView
     }
 
     public int Id { get; set; }
-    public long ActivityDate { get; set; }
-    public long AddedDate { get; set; }
+    public DateTime ActivityDate { get; set; }
+    public DateTime AddedDate { get; set; }
     public Priority? BandwidthPriority { get; set; }
     public string Comment { get; set; }
     public int CorruptEver { get; set; }
     public string Creator { get; set; }
-    public long DateCreated { get; set; }
+    public DateTime DateCreated { get; set; }
     public long DesiredAvailable { get; set; }
-    public long DoneDate { get; set; }
+    public DateTime DoneDate { get; set; }
     public string DownloadDir { get; set; }
     public long DownloadedEver { get; set; }
     public int? DownloadLimit { get; set; }
     public bool? DownloadLimited { get; set; }
-    public long EditDate { get; set; }
+    public DateTime EditDate { get; set; }
     public TorrentError Error { get; set; }
     public string ErrorString { get; set; }
     public int Eta { get; set; }
@@ -91,7 +91,7 @@ public class TorrentView : ITorrentView
     public double? SeedRatioLimit { get; set; }
     public int? SeedRatioMode { get; set; }
     public long SizeWhenDone { get; set; }
-    public long StartDate { get; set; }
+    public DateTime StartDate { get; set; }
     public TorrentStatus Status { get; set; }
     public ITransmissionTorrentTracker[] Trackers { get; set; }
     public string TrackerList { get; set; }

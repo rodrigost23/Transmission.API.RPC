@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Transmission.API.RPC.Api.Entity;
 using Transmission.API.RPC.Core.Entity.Torrent;
 using Transmission.API.RPC.Core.Enums;
@@ -17,14 +18,14 @@ public interface ITorrentView : ITorrentData
     /// <summary>
     /// The last time we uploaded or downloaded piece data on this torrent.
     /// </summary>
-    [JsonProperty(ACTIVITY_DATE)]
-    public long ActivityDate { get; set; }
+    [JsonProperty(ACTIVITY_DATE), JsonConverter(typeof(UnixDateTimeConverter))]
+    public DateTime ActivityDate { get; set; }
 
     /// <summary>
     /// When the torrent was first added.
     /// </summary>
-    [JsonProperty(ADDED_DATE)]
-    public long AddedDate { get; set; }
+    [JsonProperty(ADDED_DATE), JsonConverter(typeof(UnixDateTimeConverter))]
+    public DateTime AddedDate { get; set; }
 
     [JsonProperty(COMMENT)]
     public string Comment { get; set; }
@@ -40,8 +41,8 @@ public interface ITorrentView : ITorrentData
     [JsonProperty(CREATOR)]
     public string Creator { get; set; }
 
-    [JsonProperty(DATE_CREATED)]
-    public long DateCreated { get; set; }
+    [JsonProperty(DATE_CREATED), JsonConverter(typeof(UnixDateTimeConverter))]
+    public DateTime DateCreated { get; set; }
 
     /// <summary>
     /// Byte count of all the piece data we want and don't have yet,
@@ -53,8 +54,8 @@ public interface ITorrentView : ITorrentData
     /// <summary>
     /// When the torrent finished downloading.
     /// </summary>
-    [JsonProperty(DONE_DATE)]
-    public long DoneDate { get; set; }
+    [JsonProperty(DONE_DATE), JsonConverter(typeof(UnixDateTimeConverter))]
+    public DateTime DoneDate { get; set; }
 
     [JsonProperty(DOWNLOAD_DIR)]
     public string DownloadDir { get; set; }
@@ -73,8 +74,8 @@ public interface ITorrentView : ITorrentData
     /// or download directory.RPC clients can monitor this to know when
     /// to reload fields that rarely change.
     /// </summary>
-    [JsonProperty(EDIT_DATE)]
-    public long EditDate { get; set; }
+    [JsonProperty(EDIT_DATE), JsonConverter(typeof(UnixDateTimeConverter))]
+    public DateTime EditDate { get; set; }
 
     /// <summary>
     /// Defines what kind of text is in errorString.
@@ -298,8 +299,8 @@ public interface ITorrentView : ITorrentData
     /// <summary>
     /// When the torrent was last started.
     /// </summary>
-    [JsonProperty(START_DATE)]
-    public long StartDate { get; set; }
+    [JsonProperty(START_DATE), JsonConverter(typeof(UnixDateTimeConverter))]
+    public DateTime StartDate { get; set; }
 
     /// <summary>
     /// What is this torrent doing right now?

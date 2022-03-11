@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Transmission.API.RPC.Core.Enums;
 
 namespace Transmission.API.RPC.Core.Entity;
@@ -39,38 +40,38 @@ public interface ITorrentTrackerStats
     /// <summary>
     /// If <see cref="HasAnnounced"/>, when the latest announce request was sent
     /// </summary>
-    [JsonProperty("lastAnnounceStartTime")]
-    long LastAnnounceStartTime { get; set; }
+    [JsonProperty("lastAnnounceStartTime"), JsonConverter(typeof(UnixDateTimeConverter))]
+    DateTime LastAnnounceStartTime { get; set; }
 
     /// <summary>
     /// If <see cref="HasAnnounced"/>, when the latest announce reply was received
     /// </summary>
-    [JsonProperty("lastAnnounceTime")]
-    long LastAnnounceTime { get; set; }
+    [JsonProperty("lastAnnounceTime"), JsonConverter(typeof(UnixDateTimeConverter))]
+    DateTime LastAnnounceTime { get; set; }
 
     /// <summary>
     /// If <see cref="AnnounceState"/> == <see cref="TrackerState.Waiting"/>, time of next announce
     /// </summary>
-    [JsonProperty("nextAnnounceTime")]
-    int NextAnnounceTime { get; set; }
+    [JsonProperty("nextAnnounceTime"), JsonConverter(typeof(UnixDateTimeConverter))]
+    DateTime NextAnnounceTime { get; set; }
 
     /// <summary>
     /// If <see cref="HasScraped"/>, when the latest scrape request was sent
     /// </summary>
-    [JsonProperty("lastScrapeStartTime")]
-    int LastScrapeStartTime { get; set; }
+    [JsonProperty("lastScrapeStartTime"), JsonConverter(typeof(UnixDateTimeConverter))]
+    DateTime LastScrapeStartTime { get; set; }
 
     /// <summary>
     /// If <see cref="HasScraped"/>, when the latest scrape reply was received
     /// </summary>
-    [JsonProperty("lastScrapeTime")]
-    int LastScrapeTime { get; set; }
+    [JsonProperty("lastScrapeTime"), JsonConverter(typeof(UnixDateTimeConverter))]
+    DateTime LastScrapeTime { get; set; }
 
     /// <summary>
     /// If <see cref="ScrapeState"/> == <see cref="TrackerState.Waiting"/>, time of next scrape
     /// </summary>
-    [JsonProperty("nextScrapeTime")]
-    int NextScrapeTime { get; set; }
+    [JsonProperty("nextScrapeTime"), JsonConverter(typeof(UnixDateTimeConverter))]
+    DateTime NextScrapeTime { get; set; }
 
 
     /// <summary>
