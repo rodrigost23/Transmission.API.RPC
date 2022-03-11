@@ -6,11 +6,65 @@ using Transmission.API.RPC.Api;
 using Transmission.API.RPC.Api.Entity;
 using Transmission.API.RPC.Api.Entity.Session;
 using Transmission.API.RPC.Arguments;
+using Transmission.API.RPC.Core;
 
 namespace Transmission.API.RPC;
 
-public partial class Client
+/// <summary>
+/// Transmission client
+/// </summary>
+public class TransmissionClient : ITransmissionClient
 {
+    private readonly string _authorization;
+    private readonly bool _needAuthorization;
+
+    /// <summary>
+    /// Url to service
+    /// </summary>
+    public string Url
+    {
+        get;
+        private set;
+    }
+
+    /// <summary>
+    /// Session ID
+    /// </summary>
+    public string SessionID { get; private set; }
+
+    /// <summary>
+    /// Current Tag
+    /// </summary>
+    public int CurrentTag
+    { get; private set; }
+
+    /// <summary>
+    /// Initialize client
+    /// <example>For example
+    /// <code>
+    /// new Transmission.API.RPC.Client("https://website.com:9091/transmission/rpc")
+    /// </code>
+    /// </example>
+    /// </summary>
+    /// <param name="url">URL to Transmission RPC API. Often it looks like schema://host:port/transmission/rpc </param>
+    /// <param name="sessionID">Session ID</param>
+    /// <param name="login">Login</param>
+    /// <param name="password">Password</param>
+    public TransmissionClient(string url, string sessionID = null, string login = null, string password = null)
+    {
+        Url = url;
+        SessionID = sessionID;
+
+        if (!string.IsNullOrWhiteSpace(login))
+        {
+            var authBytes = Encoding.UTF8.GetBytes(login + ":" + password);
+            var encoded = Convert.ToBase64String(authBytes);
+
+            _authorization = "Basic " + encoded;
+            _needAuthorization = true;
+        }
+    }
+
     #region Session methods
 
     /// <summary>
@@ -82,9 +136,8 @@ public partial class Client
         }
 
         NewTorrentInfo result = null;
-        JToken value;
 
-        if (jObject.TryGetValue("torrent-duplicate", out value) || jObject.TryGetValue("torrent-added", out value))
+        if (jObject.TryGetValue("torrent-duplicate", out var value) || jObject.TryGetValue("torrent-added", out value))
         {
             result = JsonConvert.DeserializeObject<NewTorrentInfo>(value.ToString());
         }

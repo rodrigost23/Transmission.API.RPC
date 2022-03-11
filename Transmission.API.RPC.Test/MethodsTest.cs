@@ -16,7 +16,7 @@ public class MethodsTest
                                         + "./Data/ubuntu-21.10-desktop-amd64.iso.torrent";
     private const string HOST = "http://localhost:9091/transmission/rpc";
     private const string SESSION_ID = "";
-    private readonly Client client = new(HOST, SESSION_ID);
+    private readonly TransmissionClient client = new(HOST, SESSION_ID);
 
     public async Task<NewTorrentInfo> TorrentAddAsync()
     {
@@ -54,7 +54,7 @@ public class MethodsTest
     }
 
     [TestMethod]
-    public void AddTorrent_Magnet_Test()
+    public async Task AddTorrent_Magnet_TestAsync()
     {
         var torrent = new NewTorrent
         {
@@ -62,16 +62,16 @@ public class MethodsTest
             Paused = false
         };
 
-        var newTorrentInfo = client.TorrentAdd(torrent);
+        var newTorrentInfo = await client.TorrentAddAsync(torrent);
 
         Assert.IsNotNull(newTorrentInfo);
         Assert.IsTrue(newTorrentInfo.ID != 0);
     }
 
     [TestMethod]
-    public void GetTorrentInfo_Test()
+    public async Task GetTorrentInfo_TestAsync()
     {
-        var torrentsInfo = client.TorrentGet(TorrentFields.ALL_FIELDS);
+        var torrentsInfo = await client.TorrentGetAsync(TorrentFields.ALL_FIELDS);
 
         Assert.IsNotNull(torrentsInfo);
         Assert.IsNotNull(torrentsInfo.Torrents);
@@ -79,10 +79,10 @@ public class MethodsTest
     }
 
     [TestMethod]
-    public void SetTorrentSettings_Test()
+    public async Task SetTorrentSettings_TestAsync()
     {
-        var torrentsInfo = client.TorrentGet(TorrentFields.ALL_FIELDS);
-        var torrentInfo = torrentsInfo.Torrents.FirstOrDefault();
+        var torrentsInfo = await client.TorrentGetAsync(TorrentFields.ALL_FIELDS);
+        var torrentInfo = torrentsInfo.Torrents.FirstOrDefault(t => t.Trackers.Any());
         Assert.IsNotNull(torrentInfo, "Torrent not found");
 
         var trackerInfo = torrentInfo.Trackers.FirstOrDefault();
@@ -94,9 +94,9 @@ public class MethodsTest
             TrackerRemove = new int[] { trackerInfo.Id }
         };
 
-        client.TorrentSet(settings);
+        await client.TorrentSetAsync(settings);
 
-        torrentsInfo = client.TorrentGet(TorrentFields.ALL_FIELDS, torrentInfo.Id);
+        torrentsInfo = await client.TorrentGetAsync(TorrentFields.ALL_FIELDS, torrentInfo.Id);
         torrentInfo = torrentsInfo.Torrents.FirstOrDefault();
 
         Assert.IsFalse(trackerCount == torrentInfo.Trackers.Length);
@@ -106,11 +106,11 @@ public class MethodsTest
     public async Task RenamePathTorrent_Test()
     {
         var newTorrentInfo = await TorrentAddAsync();
-        var torrentsInfo = client.TorrentGet(TorrentFields.ALL_FIELDS);
+        var torrentsInfo = await client.TorrentGetAsync(TorrentFields.ALL_FIELDS);
         var torrentInfo = torrentsInfo.Torrents.First(t => t.Id == newTorrentInfo.ID);
         Assert.IsNotNull(torrentInfo, "Torrent not found");
 
-        var result = client.TorrentRenamePath(torrentInfo.Id, torrentInfo.Files[0].Name, "test_" + torrentInfo.Files[0].Name);
+        var result = await client.TorrentRenamePathAsync(torrentInfo.Id, torrentInfo.Files[0].Name, "test_" + torrentInfo.Files[0].Name);
 
         Assert.IsNotNull(result, "Torrent not found");
         Assert.IsTrue(result.ID != 0);
@@ -119,13 +119,13 @@ public class MethodsTest
     [TestMethod]
     public async Task RemoveTorrent_Test()
     {
-        var torrentsInfo = client.TorrentGet(TorrentFields.ALL_FIELDS);
+        var torrentsInfo = await client.TorrentGetAsync(TorrentFields.ALL_FIELDS);
         var torrentInfo = await TorrentAddAsync();
         Assert.IsNotNull(torrentInfo, "Torrent not found");
 
-        client.TorrentRemove(new int[] { torrentInfo.ID });
+        await client.TorrentRemoveAsync(new int[] { torrentInfo.ID });
 
-        torrentsInfo = client.TorrentGet(TorrentFields.ALL_FIELDS);
+        torrentsInfo = await client.TorrentGetAsync(TorrentFields.ALL_FIELDS);
 
         Assert.IsFalse(torrentsInfo.Torrents.Any(t => t.Id == torrentInfo.ID));
     }
@@ -135,27 +135,27 @@ public class MethodsTest
     #region Session Test
 
     [TestMethod]
-    public void SessionGetTest()
+    public async Task SessionGetTestAsync()
     {
-        var info = client.GetSessionInformation();
+        var info = await client.GetSessionInformationAsync();
         Assert.IsNotNull(info);
         Assert.IsNotNull(info.Version);
     }
 
     [TestMethod]
-    public void ChangeSessionTest()
+    public async Task ChangeSessionTestAsync()
     {
         //Get current session information
-        var sessionInformation = client.GetSessionInformation();
+        var sessionInformation = await client.GetSessionInformationAsync();
 
         //Save old speed limit up
         var oldSpeedLimit = sessionInformation.SpeedLimitUp;
 
         //Set new session settings
-        client.SetSessionSettings(new SessionSettings() { SpeedLimitUp = 100 });
+        await client.SetSessionSettingsAsync(new SessionSettings() { SpeedLimitUp = 100 });
 
         //Get new session information
-        var newSessionInformation = client.GetSessionInformation();
+        var newSessionInformation = await client.GetSessionInformationAsync();
 
         //Check new speed limit
         Assert.AreEqual(newSessionInformation.SpeedLimitUp, 100);
@@ -164,7 +164,7 @@ public class MethodsTest
         newSessionInformation.SpeedLimitUp = oldSpeedLimit;
 
         //Set new session settinhs
-        client.SetSessionSettings(new SessionSettings() { SpeedLimitUp = oldSpeedLimit });
+        await client.SetSessionSettingsAsync(new SessionSettings() { SpeedLimitUp = oldSpeedLimit });
     }
 
     #endregion
