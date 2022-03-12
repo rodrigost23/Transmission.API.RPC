@@ -11,23 +11,23 @@ public interface ITransmissionTorrentTracker
     /// Full announce URL
     /// </summary>
     [JsonProperty("announce")]
-    public string Announce { get; set; }
+    string Announce { get; set; }
 
     /// <summary>
     /// Full scrape URL
     /// </summary>
     [JsonProperty("scrape")]
-    public string Scrape { get; set; }
+    string Scrape { get; set; }
 
     /// <summary>
     /// Unique transmission-generated ID for use in libtransmission API
     /// </summary>
     [JsonProperty("id")]
-    public int Id { get; set; }
+    int Id { get; set; }
 
     /// <summary>
     /// Which tier this tracker is in
     /// </summary>
     [JsonProperty("tier")]
-    public int Tier { get; set; }
+    int Tier { get; set; }
 }

@@ -38,7 +38,7 @@ public interface ITorrentData
     /// Labels
     /// </summary>
     [JsonProperty(LABELS)]
-    string[] Labels { get; set; }
+    string[]? Labels { get; set; }
 
     /// <summary>
     /// Maximum number of peers
@@ -83,7 +83,7 @@ public interface ITorrentData
     /// line between tiers
     /// </summary>
     [JsonProperty(TRACKER_LIST)]
-    string TrackerList { get; set; }
+    string? TrackerList { get; set; }
 
     /// <summary>
     /// Maximum upload speed (KBps)

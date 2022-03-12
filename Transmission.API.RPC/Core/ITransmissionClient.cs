@@ -18,7 +18,7 @@ public interface ITransmissionClient
     /// <summary>
     /// Session ID
     /// </summary>
-    string SessionID { get; }
+    string? SessionID { get; }
 
     /// <summary>
     /// Host url
@@ -30,7 +30,7 @@ public interface ITransmissionClient
     /// Update blocklist (API: blocklist-update)
     /// </summary>
     /// <returns>Blocklist size</returns>
-    Task<int> BlocklistUpdateAsync();
+    Task<int?> BlocklistUpdateAsync();
 
     /// <summary>
     /// Close current session (API: session-close)
@@ -41,25 +41,25 @@ public interface ITransmissionClient
     /// Get free space is available in a client-specified folder.
     /// </summary>
     /// <param name="path">The directory to query</param>
-    Task<long> FreeSpaceAsync(string path);
+    Task<long?> FreeSpaceAsync(string path);
 
     /// <summary>
     /// Get information of current session (API: session-get)
     /// </summary>
     /// <returns>Session information</returns>
-    Task<SessionInfo> GetSessionInformationAsync();
+    Task<SessionInfo?> GetSessionInformationAsync();
 
     /// <summary>
     /// Get session stat
     /// </summary>
     /// <returns>Session stat</returns>
-    Task<Stats> GetSessionStatisticAsync();
+    Task<Stats?> GetSessionStatisticAsync();
 
     /// <summary>
     /// See if your incoming peer port is accessible from the outside world (API: port-test)
     /// </summary>
     /// <returns>Accessible state</returns>
-    Task<bool> PortTestAsync();
+    Task<bool?> PortTestAsync();
 
     /// <summary>
     /// Set information to current session (API: session-set)
@@ -71,7 +71,7 @@ public interface ITransmissionClient
     /// Add torrent (API: torrent-add)
     /// </summary>
     /// <returns>Torrent info (ID, Name and HashString)</returns>
-    Task<NewTorrentInfo> TorrentAddAsync(NewTorrent torrent);
+    Task<NewTorrentInfo?> TorrentAddAsync(NewTorrent torrent);
 
     /// <summary>
     /// Get <paramref name="fields"/> of torrents from <paramref name="ids"/> (API: torrent-get)
@@ -79,7 +79,7 @@ public interface ITransmissionClient
     /// <param name="ids">IDs of torrents (<see langword="null"/> or empty for get all torrents)</param>
     /// <param name="fields">Fields of torrents (empty for <see cref="TorrentFields.ALL_FIELDS"/>)</param>
     /// <returns>Torrents info</returns>
-    Task<TorrentsResult> TorrentGetAsync(int[] ids = null, params string[] fields);
+    Task<TorrentsResult?> TorrentGetAsync(int[]? ids = null, params string[] fields);
 
     /// <summary>
     /// Move torrents to bottom in queue  (API: queue-move-bottom)
@@ -118,7 +118,7 @@ public interface ITransmissionClient
     /// <param name="id">The torrent whose path will be renamed</param>
     /// <param name="path">The path to the file or folder that will be renamed</param>
     /// <param name="name">The file or folder's new name</param>
-    Task<RenameTorrentInfo> TorrentRenamePathAsync(int id, string path, string name);
+    Task<RenameTorrentInfo?> TorrentRenamePathAsync(int id, string path, string name);
 
     /// <summary>
     /// Set torrent params (API: torrent-set)

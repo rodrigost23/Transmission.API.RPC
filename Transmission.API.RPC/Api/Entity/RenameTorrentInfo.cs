@@ -7,11 +7,18 @@ namespace Transmission.API.RPC.Api.Entity;
 /// </summary>
 public class RenameTorrentInfo
 {
+    public RenameTorrentInfo(int id, string path, string name)
+    {
+        Id = id;
+        Path = path;
+        Name = name;
+    }
+
     /// <summary>
     /// The torrent's unique Id.
     /// </summary>
     [JsonProperty("id")]
-    public int ID { get; set; }
+    public int Id { get; set; }
 
     /// <summary>
     /// File path.

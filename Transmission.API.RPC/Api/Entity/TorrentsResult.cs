@@ -7,6 +7,11 @@ namespace Transmission.API.RPC.Api.Entity;
 /// </summary>
 public class TorrentsResult
 {
+    public TorrentsResult(TorrentView[] torrents)
+    {
+        Torrents = torrents;
+    }
+
     /// <summary>
     /// Array of torrents
     /// </summary>
@@ -17,5 +22,7 @@ public class TorrentsResult
     /// Array of torrent-id numbers of recently-removed torrents
     /// </summary>
     [JsonProperty("removed")]
-    public TorrentView[] Removed { get; set; }
+    public TorrentView[]? Removed { get; set; }
+
+    public static implicit operator TorrentView[](TorrentsResult torrentsResult) { return torrentsResult.Torrents; }
 }

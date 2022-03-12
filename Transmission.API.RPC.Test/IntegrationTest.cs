@@ -50,7 +50,7 @@ public class IntegrationTest
         var newTorrentInfo = await TorrentAddAsync();
 
         Assert.IsNotNull(newTorrentInfo);
-        Assert.IsTrue(newTorrentInfo.ID != 0);
+        Assert.IsTrue(newTorrentInfo.Id != 0);
     }
 
     [TestMethod]
@@ -65,7 +65,7 @@ public class IntegrationTest
         var newTorrentInfo = await client.TorrentAddAsync(torrent);
 
         Assert.IsNotNull(newTorrentInfo);
-        Assert.IsTrue(newTorrentInfo.ID != 0);
+        Assert.IsTrue(newTorrentInfo.Id != 0);
     }
 
     [TestMethod]
@@ -96,7 +96,7 @@ public class IntegrationTest
 
         await client.TorrentSetAsync(settings);
 
-        torrentsInfo = await client.TorrentGetAsync(torrentInfo.Id);
+        torrentsInfo = await client.TorrentGetAsync((int)torrentInfo.Id);
         torrentInfo = torrentsInfo.Torrents.FirstOrDefault();
 
         Assert.IsFalse(trackerCount == torrentInfo.Trackers.Length);
@@ -107,13 +107,13 @@ public class IntegrationTest
     {
         var newTorrentInfo = await TorrentAddAsync();
         var torrentsInfo = await client.TorrentGetAsync();
-        var torrentInfo = torrentsInfo.Torrents.First(t => t.Id == newTorrentInfo.ID);
+        var torrentInfo = torrentsInfo.Torrents.FirstOrDefault(t => t.Id == newTorrentInfo.Id);
         Assert.IsNotNull(torrentInfo, "Torrent not found");
 
-        var result = await client.TorrentRenamePathAsync(torrentInfo.Id, torrentInfo.Files[0].Name, "test_" + torrentInfo.Files[0].Name);
+        var result = await client.TorrentRenamePathAsync((int)torrentInfo.Id, torrentInfo.Files[0].Name, "test_" + torrentInfo.Files[0].Name);
 
         Assert.IsNotNull(result, "Torrent not found");
-        Assert.IsTrue(result.ID != 0);
+        Assert.IsTrue(result.Id != 0);
     }
 
     [TestMethod]
@@ -123,11 +123,11 @@ public class IntegrationTest
         var torrentInfo = await TorrentAddAsync();
         Assert.IsNotNull(torrentInfo, "Torrent not found");
 
-        await client.TorrentRemoveAsync(new int[] { torrentInfo.ID });
+        await client.TorrentRemoveAsync(new int[] { torrentInfo.Id });
 
         torrentsInfo = await client.TorrentGetAsync();
 
-        Assert.IsFalse(torrentsInfo.Torrents.Any(t => t.Id == torrentInfo.ID));
+        Assert.IsFalse(torrentsInfo.Torrents.Any(t => t.Id == torrentInfo.Id));
     }
 
     #endregion

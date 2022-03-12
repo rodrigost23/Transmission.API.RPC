@@ -54,7 +54,7 @@ public class SessionInfo
     /// Location of the blocklist to use for "blocklist-update"
     /// </summary>
     [JsonProperty("blocklist-url")]
-    public string BlocklistURL { get; set; }
+    public string? BlocklistURL { get; set; }
 
     /// <summary>
     /// True means enabled
@@ -72,14 +72,14 @@ public class SessionInfo
     /// Default path to download torrents
     /// </summary>
     [JsonProperty("download-dir")]
-    public string DownloadDirectory { get; set; }
+    public string? DownloadDirectory { get; set; }
 
     /// <summary>
     /// Free space in download dir
     /// </summary>
     [JsonProperty("download-dir-free-space")]
     [Obsolete("Obsolete since Transmission 4.0.0. Use the free-space method instead.")]
-    public string DownloadDirectoryFreeSpace { get; set; }
+    public string? DownloadDirectoryFreeSpace { get; set; }
 
     /// <summary>
     /// Max number of torrents to download at once (see download-queue-enabled)
@@ -103,7 +103,7 @@ public class SessionInfo
     /// "required", "preferred", "tolerated"
     /// </summary>
     [JsonProperty("encryption")]
-    public string Encryption { get; set; }
+    public string? Encryption { get; set; }
 
     /// <summary>
     /// Torrents we're seeding will be stopped if they're idle for this long
@@ -121,7 +121,7 @@ public class SessionInfo
     /// Path for incomplete torrents, when enabled
     /// </summary>
     [JsonProperty("incomplete-dir")]
-    public string IncompleteDirectory { get; set; }
+    public string? IncompleteDirectory { get; set; }
 
     /// <summary>
     /// True means keep torrents in incomplete-dir until done
@@ -193,13 +193,13 @@ public class SessionInfo
     /// Session ID
     /// </summary>
     [JsonProperty("session-id")]
-    public string SessionID { get; set; }
+    public string? SessionID { get; set; }
 
     /// <summary>
     /// Filename of the script to run
     /// </summary>
     [JsonProperty("script-torrent-done-filename")]
-    public string ScriptTorrentDoneFilename { get; set; }
+    public string? ScriptTorrentDoneFilename { get; set; }
 
     /// <summary>
     /// Whether or not to call the "done" script
@@ -271,7 +271,7 @@ public class SessionInfo
     /// Units
     /// </summary>
     [JsonProperty("units")]
-    public Units Units { get; set; }
+    public Units? Units { get; set; }
 
     /// <summary>
     /// True means allow utp
@@ -283,29 +283,29 @@ public class SessionInfo
     /// Number of rules in the blocklist
     /// </summary>
     [JsonProperty("blocklist-size")]
-    public int BlocklistSize { get; set; }
+    public int? BlocklistSize { get; set; }
 
     /// <summary>
     /// Location of transmission's configuration directory
     /// </summary>
     [JsonProperty("config-dir")]
-    public string ConfigDirectory { get; set; }
+    public string? ConfigDirectory { get; set; }
 
     /// <summary>
     /// The current RPC API version
     /// </summary>
     [JsonProperty("rpc-version")]
-    public int RpcVersion { get; set; }
+    public int? RpcVersion { get; set; }
 
     /// <summary>
     /// The minimum RPC API version supported
     /// </summary>
     [JsonProperty("rpc-version-minimum")]
-    public int RpcVersionMinimum { get; set; }
+    public int? RpcVersionMinimum { get; set; }
 
     /// <summary>
     /// Long version string "$version ($revision)"
     /// </summary>
     [JsonProperty("version")]
-    public string Version { get; set; }
+    public string? Version { get; set; }
 }

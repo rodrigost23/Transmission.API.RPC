@@ -13,22 +13,22 @@ public interface ITorrentView : ITorrentData
     /// The torrent's unique Id.
     /// </summary>
     [JsonProperty(ID)]
-    int Id { get; set; }
+    int? Id { get; set; }
 
     /// <summary>
     /// The last time we uploaded or downloaded piece data on this torrent.
     /// </summary>
     [JsonProperty(ACTIVITY_DATE), JsonConverter(typeof(UnixDateTimeConverter))]
-    public DateTime ActivityDate { get; set; }
+    DateTime? ActivityDate { get; set; }
 
     /// <summary>
     /// When the torrent was first added.
     /// </summary>
     [JsonProperty(ADDED_DATE), JsonConverter(typeof(UnixDateTimeConverter))]
-    public DateTime AddedDate { get; set; }
+    DateTime? AddedDate { get; set; }
 
     [JsonProperty(COMMENT)]
-    public string Comment { get; set; }
+    string? Comment { get; set; }
 
     /// <summary>
     /// Byte count of all the corrupt data you've ever downloaded for
@@ -36,29 +36,29 @@ public interface ITorrentView : ITorrentData
     /// grow very large.
     /// </summary>
     [JsonProperty(CORRUPT_EVER)]
-    public int CorruptEver { get; set; }
+    int? CorruptEver { get; set; }
 
     [JsonProperty(CREATOR)]
-    public string Creator { get; set; }
+    string? Creator { get; set; }
 
     [JsonProperty(DATE_CREATED), JsonConverter(typeof(UnixDateTimeConverter))]
-    public DateTime DateCreated { get; set; }
+    DateTime? DateCreated { get; set; }
 
     /// <summary>
     /// Byte count of all the piece data we want and don't have yet,
     /// but that a connected peer does have. [0...<see cref="LeftUntilDone"/>]
     /// </summary>
     [JsonProperty(DESIRED_AVAILABLE)]
-    public long DesiredAvailable { get; set; }
+    long? DesiredAvailable { get; set; }
 
     /// <summary>
     /// When the torrent finished downloading.
     /// </summary>
     [JsonProperty(DONE_DATE), JsonConverter(typeof(UnixDateTimeConverter))]
-    public DateTime DoneDate { get; set; }
+    DateTime? DoneDate { get; set; }
 
     [JsonProperty(DOWNLOAD_DIR)]
-    public string DownloadDir { get; set; }
+    string? DownloadDir { get; set; }
 
     /// <summary>
     /// Byte count of all the non-corrupt data you've ever downloaded
@@ -66,7 +66,7 @@ public interface ITorrentView : ITorrentData
     /// second time, this will be 2 * <see cref="TotalSize"/>..
     /// </summary>
     [JsonProperty(DOWNLOADED_EVER)]
-    public long DownloadedEver { get; set; }
+    long? DownloadedEver { get; set; }
 
     /// <summary>
     /// The last time during this session that a rarely-changing field
@@ -75,7 +75,7 @@ public interface ITorrentView : ITorrentData
     /// to reload fields that rarely change.
     /// </summary>
     [JsonProperty(EDIT_DATE), JsonConverter(typeof(UnixDateTimeConverter))]
-    public DateTime EditDate { get; set; }
+    DateTime? EditDate { get; set; }
 
     /// <summary>
     /// Defines what kind of text is in errorString.
@@ -83,7 +83,7 @@ public interface ITorrentView : ITorrentData
     /// See <seealso cref="ErrorString"/>
     /// </summary>
     [JsonProperty(ERROR)]
-    public TorrentError Error { get; set; }
+    TorrentError? Error { get; set; }
 
     /// <summary>
     /// A warning or error message regarding the torrent.
@@ -91,32 +91,32 @@ public interface ITorrentView : ITorrentData
     /// <seealso cref="Error"/>
     /// </summary>
     [JsonProperty(ERROR_STRING)]
-    public string ErrorString { get; set; }
+    string? ErrorString { get; set; }
 
     /// <summary>
     /// If downloading, estimated number of seconds left until the torrent is done.
     /// If seeding, estimated number of seconds left until seed ratio is reached.
     /// </summary>
     [JsonProperty(ETA)]
-    public int Eta { get; set; }
+    int? Eta { get; set; }
 
     /// <summary>
     /// If seeding, number of seconds left until the idle time limit is reached.
     /// </summary>
     [JsonProperty(ETA_IDLE)]
-    public int EtaIdle { get; set; }
+    int? EtaIdle { get; set; }
 
     [JsonProperty(FILE_COUNT)]
-    public int FileCount { get; set; }
+    int? FileCount { get; set; }
 
     [JsonProperty(FILES)]
-    public ITorrentFile[] Files { get; set; }
+    ITorrentFile[]? Files { get; set; }
 
     [JsonProperty(FILE_STATS)]
-    public ITorrentFileStats[] FileStats { get; set; }
+    ITorrentFileStats[]? FileStats { get; set; }
 
     [JsonProperty(HASH_STRING)]
-    public string HashString { get; set; }
+    string? HashString { get; set; }
 
     /// <summary>
     /// Byte count of all the partial piece data we have for this torrent.
@@ -125,23 +125,23 @@ public interface ITorrentView : ITorrentData
     /// are moved to <see cref="CorruptEver"/> or <see cref="HaveValid"/>.
     /// </summary>
     [JsonProperty(HAVE_UNCHECKED)]
-    public int HaveUnchecked { get; set; }
+    int? HaveUnchecked { get; set; }
 
     /// <summary>
     /// Byte count of all the checksum-verified data we have for this torrent.
     /// </summary>
     [JsonProperty(HAVE_VALID)]
-    public long HaveValid { get; set; }
+    long? HaveValid { get; set; }
 
     /// <summary>
     /// A torrent is considered finished if it has met its seed ratio.
     /// As a result, only paused torrents can be finished.
     /// </summary>
     [JsonProperty(IS_FINISHED)]
-    public bool IsFinished { get; set; }
+    bool? IsFinished { get; set; }
 
     [JsonProperty(IS_PRIVATE)]
-    public bool IsPrivate { get; set; }
+    bool? IsPrivate { get; set; }
 
     /// <summary>
     /// <see langword="true"/> if the torrent is running, but has been idle for long enough
@@ -150,17 +150,17 @@ public interface ITorrentView : ITorrentData
     /// See <seealso cref="SessionInfo.QueueStalledMinutes"/>
     /// </summary>
     [JsonProperty(IS_STALLED)]
-    public bool IsStalled { get; set; }
+    bool? IsStalled { get; set; }
 
     /// <summary>
     /// Byte count of how much data is left to be downloaded until we've got
     /// all the pieces that we want. [0..<see cref="SizeWhenDone"/>]
     /// </summary>
     [JsonProperty(LEFT_UNTIL_DONE)]
-    public long LeftUntilDone { get; set; }
+    long? LeftUntilDone { get; set; }
 
     [JsonProperty(MAGNET_LINK)]
-    public string MagnetLink { get; set; }
+    string? MagnetLink { get; set; }
 
     /// <summary>
     /// Time when one or more of the torrent's trackers will
@@ -168,10 +168,10 @@ public interface ITorrentView : ITorrentData
     /// can't
     /// </summary>
     [JsonProperty(MANUAL_ANNOUNCE_TIME)]
-    public int ManualAnnounceTime { get; set; }
+    int? ManualAnnounceTime { get; set; }
 
     [JsonProperty(MAX_CONNECTED_PEERS)]
-    public int MaxConnectedPeers { get; set; }
+    int? MaxConnectedPeers { get; set; }
 
     /// <summary>
     /// How much of the metadata the torrent has.
@@ -180,45 +180,45 @@ public interface ITorrentView : ITorrentData
     /// Range is [0..1] 
     /// </summary>
     [JsonProperty(METADATA_PERCENT_COMPLETE)]
-    public double MetadataPercentComplete { get; set; }
+    double? MetadataPercentComplete { get; set; }
 
     [JsonProperty(NAME)]
-    public string Name { get; set; }
+    string? Name { get; set; }
 
     [JsonProperty(PEERS)]
-    public ITorrentPeers[] Peers { get; set; }
+    ITorrentPeers[]? Peers { get; set; }
 
     /// <summary>
     /// Number of peers that we're connected to
     /// </summary>
     [JsonProperty(PEERS_CONNECTED)]
-    public int PeersConnected { get; set; }
+    int? PeersConnected { get; set; }
 
     /// <summary>
     /// How many peers we found out about from the tracker, or from pex,
     /// or from incoming connections, or from our resume file.
     /// </summary>
     [JsonProperty(PEERS_FROM)]
-    public ITorrentPeersFrom PeersFrom { get; set; }
+    ITorrentPeersFrom? PeersFrom { get; set; }
 
     /// <summary>
     /// Number of peers that we're sending data to.
     /// </summary>
     [JsonProperty(PEERS_GETTING_FROM_US)]
-    public int PeersGettingFromUs { get; set; }
+    int? PeersGettingFromUs { get; set; }
 
     /// <summary>
     /// Number of peers that are sending data to us.
     /// </summary>
     [JsonProperty(PEERS_SENDING_TO_US)]
-    public int PeersSendingToUs { get; set; }
+    int? PeersSendingToUs { get; set; }
 
     /// <summary>
     /// How much has been downloaded of the entire torrent.
     /// Range is [0..1]
     /// </summary>
     [JsonProperty(PERCENT_COMPLETE)]
-    public double PercentComplete { get; set; }
+    double? PercentComplete { get; set; }
 
     /// <summary>
     /// How much has been downloaded of the files the user wants. This differs
@@ -228,41 +228,41 @@ public interface ITorrentView : ITorrentData
     /// See <seealso cref="LeftUntilDone"/>
     /// </summary>
     [JsonProperty(PERCENT_DONE)]
-    public double PercentDone { get; set; }
+    double? PercentDone { get; set; }
 
     [JsonProperty(PIECES)]
-    public string Pieces { get; set; }
+    string? Pieces { get; set; }
 
     [JsonProperty(PIECE_COUNT)]
-    public int PieceCount { get; set; }
+    int? PieceCount { get; set; }
 
     [JsonProperty(PIECE_SIZE)]
-    public long PieceSize { get; set; }
+    long? PieceSize { get; set; }
 
     /// <summary>
     /// Array of <see langword="Priority"/>, with each one corresponding to a file.
     /// </summary>
     [JsonProperty(PRIORITIES)]
-    public Priority[] Priorities { get; set; }
+    Priority[]? Priorities { get; set; }
 
     /// <summary>
     /// Return the mime-type (e.g. "audio/x-flac") that matches more of the
     /// torrent's content than any other mime-type. 
     /// </summary>
     [JsonProperty(PRIMARY_MIME_TYPE)]
-    public string PrimaryMimeType { get; set; }
+    string? PrimaryMimeType { get; set; }
 
     /// <summary>
     /// Download speed (B/s)
     /// </summary>
     [JsonProperty(RATE_DOWNLOAD)]
-    public int RateDownload { get; set; }
+    int? RateDownload { get; set; }
 
     /// <summary>
     /// Upload speed (B/s)
     /// </summary>
     [JsonProperty(RATE_UPLOAD)]
-    public int RateUpload { get; set; }
+    int? RateUpload { get; set; }
 
     /// <summary>
     /// When <see cref="Status"/> is <see cref="TorrentStatus.Verifying"/> or <see cref="TorrentStatus.VerifyQueue"/>,
@@ -273,19 +273,19 @@ public interface ITorrentView : ITorrentData
     /// See <seealso cref="Status"/>
     /// </summary>
     [JsonProperty(RECHECK_PROGRESS)]
-    public double RecheckProgress { get; set; }
+    double? RecheckProgress { get; set; }
 
     /// <summary>
     /// Cumulative seconds the torrent's ever spent downloading 
     /// </summary>
     [JsonProperty(SECONDS_DOWNLOADING)]
-    public int SecondsDownloading { get; set; }
+    int? SecondsDownloading { get; set; }
 
     /// <summary>
     /// Cumulative seconds the torrent's ever spent seeding 
     /// </summary>
     [JsonProperty(SECONDS_SEEDING)]
-    public int SecondsSeeding { get; set; }
+    int? SecondsSeeding { get; set; }
 
     /// <summary>
     /// Byte count of all the piece data we'll have downloaded when we're done,
@@ -294,62 +294,62 @@ public interface ITorrentView : ITorrentData
     /// [0...<see cref="TotalSize"/>]
     /// </summary>
     [JsonProperty(SIZE_WHEN_DONE)]
-    public long SizeWhenDone { get; set; }
+    long? SizeWhenDone { get; set; }
 
     /// <summary>
     /// When the torrent was last started.
     /// </summary>
     [JsonProperty(START_DATE), JsonConverter(typeof(UnixDateTimeConverter))]
-    public DateTime StartDate { get; set; }
+    DateTime? StartDate { get; set; }
 
     /// <summary>
     /// What is this torrent doing right now?
     /// </summary>
     [JsonProperty(STATUS)]
-    public TorrentStatus Status { get; set; }
+    TorrentStatus? Status { get; set; }
 
     [JsonProperty(TRACKERS)]
-    public ITransmissionTorrentTracker[] Trackers { get; set; }
+    ITransmissionTorrentTracker[]? Trackers { get; set; }
 
     [JsonProperty(TRACKER_STATS)]
-    public ITorrentTrackerStats[] TrackerStats { get; set; }
+    ITorrentTrackerStats[]? TrackerStats { get; set; }
 
     /// <summary>
     /// Total size of the torrent, including unwanted files.
     /// </summary>
     [JsonProperty(TOTAL_SIZE)]
-    public long TotalSize { get; set; }
+    long? TotalSize { get; set; }
 
     /// <summary>
     /// Path to the torrent file in the server
     /// </summary>
     [JsonProperty(TORRENT_FILE)]
-    public string TorrentFile { get; set; }
+    string? TorrentFile { get; set; }
 
     /// <summary>
     /// Byte count of all data you've ever uploaded for this torrent.
     /// </summary>
     [JsonProperty(UPLOADED_EVER)]
-    public long UploadedEver { get; set; }
+    long? UploadedEver { get; set; }
 
     /// <summary>
     /// Total uploaded bytes / total torrent size.
     /// </summary>
     [JsonProperty(UPLOAD_RATIO)]
-    public double UploadRatio { get; set; }
+    double? UploadRatio { get; set; }
 
     /// <summary>
     /// An array of booleans, with each item corresponding to a file
     /// </summary>
     [JsonProperty(WANTED)]
-    public bool[] Wanted { get; set; }
+    bool[]? Wanted { get; set; }
 
     [JsonProperty(WEBSEEDS)]
-    public string[] Webseeds { get; set; }
+    string[]? Webseeds { get; set; }
 
     /// <summary>
     /// Number of webseeds that are sending data to us.
     /// </summary>
     [JsonProperty(WEBSEEDS_SENDING_TO_US)]
-    public int WebseedsSendingToUs { get; set; }
+    int? WebseedsSendingToUs { get; set; }
 }

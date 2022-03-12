@@ -46,7 +46,7 @@ public class SessionSettings : ArgumentsBase
     /// <summary>
     /// Location of the blocklist to use for "blocklist-update"
     /// </summary>
-    public string BlocklistURL { get => GetValue<string>("blocklist-url"); set => this["blocklist-url"] = value; }
+    public string? BlocklistURL { get => GetValue<string?>("blocklist-url"); set => this["blocklist-url"] = value; }
 
     /// <summary>
     /// True means enabled
@@ -61,7 +61,7 @@ public class SessionSettings : ArgumentsBase
     /// <summary>
     /// Default path to download torrents
     /// </summary>
-    public string DownloadDirectory { get => GetValue<string>("download-dir"); set => this["download-dir"] = value; }
+    public string? DownloadDirectory { get => GetValue<string?>("download-dir"); set => this["download-dir"] = value; }
 
     /// <summary>
     /// Max number of torrents to download at once (see download-queue-enabled)
@@ -81,7 +81,7 @@ public class SessionSettings : ArgumentsBase
     /// <summary>
     /// "required", "preferred", "tolerated"
     /// </summary>
-    public string Encryption { get => GetValue<string>("encryption"); set => this["encryption"] = value; }
+    public string? Encryption { get => GetValue<string?>("encryption"); set => this["encryption"] = value; }
 
     /// <summary>
     /// Torrents we're seeding will be stopped if they're idle for this long
@@ -96,7 +96,7 @@ public class SessionSettings : ArgumentsBase
     /// <summary>
     /// Path for incomplete torrents, when enabled
     /// </summary>
-    public string IncompleteDirectory { get => GetValue<string>("incomplete-dir"); set => this["incomplete-dir"] = value; }
+    public string? IncompleteDirectory { get => GetValue<string?>("incomplete-dir"); set => this["incomplete-dir"] = value; }
 
     /// <summary>
     /// True means keep torrents in incomplete-dir until done
@@ -156,7 +156,7 @@ public class SessionSettings : ArgumentsBase
     /// <summary>
     /// Filename of the script to run
     /// </summary>
-    public string ScriptTorrentDoneFilename { get => GetValue<string>("script-torrent-done-filename"); set => this["script-torrent-done-filename"] = value; }
+    public string? ScriptTorrentDoneFilename { get => GetValue<string?>("script-torrent-done-filename"); set => this["script-torrent-done-filename"] = value; }
 
     /// <summary>
     /// Whether or not to call the "done" script
@@ -216,7 +216,7 @@ public class SessionSettings : ArgumentsBase
     /// <summary>
     /// Units
     /// </summary>
-    public Units Units { get => GetValue<Units>("units"); set => this["units"] = value; }
+    public Units? Units { get => GetValue<Units?>("units"); set => this["units"] = value; }
 
     /// <summary>
     /// True means allow utp
